@@ -1,6 +1,8 @@
 import express from 'express'
 import { User } from '../models/user.js'
 
+import { pageQuery } from '../utils/db-utils'
+
 let router = express.Router()
 
 /**
@@ -29,16 +31,17 @@ router.patch('/:id', (req, res) => {
       res.status(404).json(err)
       return
     }
-    let updatedUser = req.body
-    updatedUser.password = user.password
-    updatedUser._id = user._id
 
-    User.update(updatedUser, (err, user) => {
+    user.role = req.body.role
+    user.name = req.body.name
+    user.email = req.body.email
+    user.save(err => {
       if (err) {
         res.status(500).json(err)
+        return
       }
-      updatedUser.password = undefined
-      res.json(updatedUser)
+      user.password = undefined
+      res.json(user)
     })
   })
 })
@@ -72,17 +75,26 @@ router.delete('/:id', (req, res) => {
  * 获取用户列表
  */
 router.get('/', (req, res) => {
-  console.log('find users, changed!')
-  User.find().exec((err, users) => {
-    if (err) {
-      res.status(500).json(err)
-      return
-    }
-    users.forEach(user => {
-      user.password = undefined
+
+  const page = req.query.page ? parseInt(req.query.page, 10) : 1
+  const perpage = parseInt(req.query.perpage, 10)
+
+  if (!perpage) {
+    User.find().exec((err, list) => {
+      if (err) {
+        res.status(500).json(err)
+        return
+      }
+      res.json(list)
     })
-    res.json(users)
-  })
+  } else {
+    pageQuery(page, perpage, User, undefined, {}, { created: 'desc' }, (err, $page) => {
+      $page.items.forEach(user => {
+        user.password = undefined
+      })
+      res.json($page)
+    })
+  }
 })
 
 export default router

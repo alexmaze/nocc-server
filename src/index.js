@@ -27,7 +27,7 @@ app.use(cookieParser())
 // session 注入
 app.use(session({
   secret: 'WV78o1Z3v4HjJ8SkPnOjAdC2',
-  cookie: { maxAge: 60 * 1000 },
+  cookie: { maxAge: 60 * 1000 * 60 * 2 },
   resave: true,
   saveUninitialized: true
 }))

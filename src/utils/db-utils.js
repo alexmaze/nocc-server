@@ -5,7 +5,7 @@ export function pageQuery(page, pageSize, Model, populate, queryParams, sortPara
   let start = (page - 1) * pageSize
   let $page = {
     page,
-    size: pageSize
+    perpage: pageSize
   }
 
   async.parallel({
@@ -28,7 +28,7 @@ export function pageQuery(page, pageSize, Model, populate, queryParams, sortPara
   }, function (err, results) {
     let count = results.count
     $page.total = count
-    $page.results = results.records
+    $page.items = results.records
     callback(err, $page)
   })
 }

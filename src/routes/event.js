@@ -55,9 +55,9 @@ router.delete('/:id', (req, res) => {
 
 router.get('/', (req, res) => {
   const page = req.query.page ? parseInt(req.query.page, 10) : 1
-  const size = parseInt(req.query.size, 10)
+  const perpage = parseInt(req.query.perpage, 10)
 
-  if (!size) {
+  if (!perpage) {
     Event.find().exec((err, events) => {
       if (err) {
         res.status(500).json(err)
@@ -66,7 +66,7 @@ router.get('/', (req, res) => {
       res.json(events)
     })
   } else {
-    pageQuery(page, size, Event, undefined, {}, { created: 'desc' }, (err, $page) => {
+    pageQuery(page, perpage, Event, undefined, {}, { created: 'desc' }, (err, $page) => {
       res.json($page)
     })
   }
