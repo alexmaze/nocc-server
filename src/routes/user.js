@@ -23,21 +23,22 @@ router.post('/', (req, res) => {
  * 更新用户
  * * 支持部分更新，_id 为必填
  */
-router.patch('/', (req, res) => {
-  console.log('update user', req.body)
-
-  User.findById(req.body._id, (err, user) => {
+router.patch('/:id', (req, res) => {
+  User.findById(req.params.id, (err, user) => {
     if (err) {
       res.status(404).json(err)
       return
     }
-    Object.assign(user, req.body)
-    user.save(err => {
+    let updatedUser = req.body
+    updatedUser.password = user.password
+    updatedUser._id = user._id
+
+    User.update(updatedUser, (err, user) => {
       if (err) {
         res.status(500).json(err)
-        return
       }
-      res.json(user)
+      updatedUser.password = undefined
+      res.json(updatedUser)
     })
   })
 })
@@ -52,7 +53,18 @@ router.get('/:id', (req, res) => {
       res.status(404).json(err)
       return
     }
+    user.password = undefined
     res.json(user)
+  })
+})
+
+router.delete('/:id', (req, res) => {
+  User.findByIdAndRemove(req.params.id, (err) => {
+    if (err) {
+      res.status(404).json(err)
+      return
+    }
+    res.status(200).end()
   })
 })
 
@@ -66,6 +78,9 @@ router.get('/', (req, res) => {
       res.status(500).json(err)
       return
     }
+    users.forEach(user => {
+      user.password = undefined
+    })
     res.json(users)
   })
 })

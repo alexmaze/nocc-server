@@ -11,6 +11,7 @@ router.post('/', (req, res) => {
   User.find({ name: req.body.name, password: req.body.password }).exec().then(users => {
     if (users && users[0]) {
       req.session.user = users[0]
+      users[0].password = undefined
       res.json(users[0])
     } else {
       res.status(403).end()
