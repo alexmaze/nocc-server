@@ -60,7 +60,7 @@ router.get('/:id', (req, res) => {
  * 获取用户列表
  */
 router.get('/', (req, res) => {
-  console.log('find users')
+  console.log('find users, modified!')
   User.find().exec((err, users) => {
     if (err) {
       res.status(500).json(err)
