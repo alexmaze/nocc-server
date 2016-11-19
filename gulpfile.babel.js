@@ -31,7 +31,7 @@ gulp.task('lint', function () {
 })
 
 gulp.task('babel', shell.task([
-  'babel src --out-dir app'
+  'babel src --source-maps inline --out-dir app'
 ]))
 
 let express
@@ -48,4 +48,14 @@ gulp.task('watch', () => {
   return watch(paths.js, () => {
     gulp.start('build')
   })
+})
+
+
+gulp.task('watchOnlyBuild', () => {
+  return watch(paths.js, () => {
+    gulp.start('onlyBuild')
+  })
+})
+gulp.task('onlyBuild', cb => {
+  run('clean', 'lint', 'babel', cb)
 })

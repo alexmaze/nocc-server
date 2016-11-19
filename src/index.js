@@ -21,6 +21,14 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded( { extended: true } ))
 app.use(cookieParser())
 
+// session
+app.use(session({
+  secret: 'WV78o1Z3v4HjJ8SkPnOjAdC2',
+  cookie: { maxAge: 60 * 1000 },
+  resave: true,
+  saveUninitialized: true
+}))
+
 // 注册路由
 // auto load modules
 wrench.readdirSyncRecursive(`${__dirname}/routes`)
