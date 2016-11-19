@@ -2,21 +2,18 @@ import mongoose from 'mongoose'
 
 export let UserScheme = new mongoose.Schema({
   name: {
-    type: String,
-    require: true
-  },
-  email: {
     unique: true,
     type: String,
     require: true
   },
+  email: String,
   password: {
     type: String,
     require: true
   },
   avatarUrl: String,
   gender: Boolean,
-  rule: String,
+  role: String,
   created: Date
 })
 
