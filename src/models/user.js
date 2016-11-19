@@ -16,6 +16,7 @@ export let UserScheme = new mongoose.Schema({
   },
   avatarUrl: String,
   gender: Boolean,
+  rule: String,
   created: Date
 })
 

@@ -6,7 +6,8 @@ import logger from 'morgan'
 import session from 'express-session'
 import wrench from 'wrench'
 
-import { db } from './db.js'
+import { db } from './db'
+import { auth } from './middlewares/auth'
 
 const PORT = 4000
 
@@ -28,6 +29,8 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }))
+
+app.use(auth)
 
 // 注册路由
 // auto load modules
