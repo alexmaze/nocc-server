@@ -4,8 +4,7 @@ import cookieParser from 'cookie-parser'
 import multer from 'multer'
 import logger from 'morgan'
 import session from 'express-session'
-
-import userRoute from './routes/user.js'
+import wrench from 'wrench'
 
 import { db } from './db.js'
 
@@ -23,7 +22,15 @@ app.use(bodyParser.urlencoded( { extended: true } ))
 app.use(cookieParser())
 
 // 注册路由
-app.use('/api/user', userRoute)
+// auto load modules
+wrench.readdirSyncRecursive(`${__dirname}/routes`)
+  .filter((path) => (/\.(js|coffee)$/i)
+  .test(path))
+  .map((path) => {
+    let routePrefix = path.substring(0, path.length - 3)
+    console.log('Load', routePrefix, path)
+    app.use(`/api/${routePrefix}`, require(`${__dirname}/routes/${path}`).default)
+  })
 
 app.listen(PORT, () => {
   console.log('server is listening @', PORT)

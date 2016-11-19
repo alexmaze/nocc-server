@@ -12,7 +12,7 @@ const paths = {
 }
 
 gulp.task('default', cb => {
-  run('server', 'build', 'watch', cb)
+  run('serve', 'build', 'watch', cb)
 })
 
 gulp.task('build', cb => {
@@ -36,7 +36,7 @@ gulp.task('babel', shell.task([
 
 let express
 
-gulp.task('server', () => {
+gulp.task('serve', () => {
   express = server.new(paths.destination)
 })
 

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "gulp",
     "start": "node ./app/index.js",
     "lint": "eslint ."
   },
@@ -30,6 +31,7 @@
     "express-session": "^1.14.0",
     "mongoose": "^4.5.9",
     "morgan": "^1.7.0",
-    "multer": "^1.1.0"
+    "multer": "^1.1.0",
+    "wrench": "^1.5.9"
   }
 }
