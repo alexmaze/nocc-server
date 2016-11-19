@@ -14,15 +14,17 @@ const PORT = 4000
 const app = express()
 const upload = multer()
 
-app.set('trust proxy', 1) // trust first proxy
+// trust first proxy
+app.set('trust proxy', 1)
 
+// 中间件
 app.use(express.static(__dirname + '/../public'))
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded( { extended: true } ))
 app.use(cookieParser())
 
-// session
+// session 注入
 app.use(session({
   secret: 'WV78o1Z3v4HjJ8SkPnOjAdC2',
   cookie: { maxAge: 60 * 1000 },
@@ -30,10 +32,10 @@ app.use(session({
   saveUninitialized: true
 }))
 
+// 授权检测
 app.use(auth)
 
-// 注册路由
-// auto load modules
+// 自动注册路由
 wrench.readdirSyncRecursive(`${__dirname}/routes`)
   .filter((path) => (/\.(js|coffee)$/i)
   .test(path))
@@ -43,6 +45,7 @@ wrench.readdirSyncRecursive(`${__dirname}/routes`)
     app.use(`/api/${routePrefix}`, require(`${__dirname}/routes/${path}`).default)
   })
 
+// 启动
 app.listen(PORT, () => {
   console.log('server is listening @', PORT)
 })

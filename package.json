@@ -12,11 +12,13 @@
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.9.0",
+    "babel-eslint": "6",
     "babel-preset-latest-node6": "^0.1.0",
     "eslint": "^3.8.0",
     "nodemon": "^1.11.0"
   },
   "dependencies": {
+    "async": "^2.1.2",
     "body-parser": "^1.15.1",
     "cookie-parser": "^1.4.2",
     "express": "^4.13.4",
