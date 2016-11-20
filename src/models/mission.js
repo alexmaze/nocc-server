@@ -2,7 +2,8 @@ import mongoose from 'mongoose'
 
 export let MissionScheme = new mongoose.Schema({
   images: Array,
-  text: String
+  text: String,
+  text_en: String
 })
 // {
 //     description: String,
