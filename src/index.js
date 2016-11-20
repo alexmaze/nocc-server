@@ -5,6 +5,7 @@ import multer from 'multer'
 import logger from 'morgan'
 import session from 'express-session'
 import wrench from 'wrench'
+import path from 'path'
 
 import { db } from './db'
 import { auth } from './middlewares/auth'
@@ -18,7 +19,7 @@ const upload = multer()
 app.set('trust proxy', 1)
 
 // 中间件
-app.use(express.static(__dirname + '/../public'))
+app.use('/upload', express.static(path.join(__dirname, '../public/upload')))
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded( { extended: true } ))
