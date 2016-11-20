@@ -7,21 +7,29 @@ export let LabScheme = new mongoose.Schema({
   circle1: {
     title: String,
     title_en: String,
+    info: String,
+    info_en: String,
     url: String
   },
   circle2: {
     title: String,
     title_en: String,
+    info: String,
+    info_en: String,
     url: String
   },
   circle3: {
     title: String,
     title_en: String,
+    info: String,
+    info_en: String,
     url: String
   },
   circle4: {
     title: String,
     title_en: String,
+    info: String,
+    info_en: String,
     url: String
   }
 })

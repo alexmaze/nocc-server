@@ -9,7 +9,19 @@ let recordId
 Lab.find((err, old) => {
   if (!old || old.length == 0) {
     let lab = new Lab({
-      images: []
+      images: [],
+      circle1: {
+        title: ''
+      },
+      circle2: {
+        title: ''
+      },
+      circle3: {
+        title: ''
+      },
+      circle4: {
+        title: ''
+      }
     })
     lab.save((err, s) => {
       if (err) {
