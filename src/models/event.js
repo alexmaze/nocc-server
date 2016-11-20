@@ -12,6 +12,7 @@ export let EventScheme = new mongoose.Schema({
   location_en: String,
   content_en: String,
 
+  type: Number, // 0 forum 1 lecture 2 workshop  10 lab
   time: String,
   created: Date
 })

@@ -11,6 +11,7 @@ export let FacultyScheme = new mongoose.Schema({
   position_en: String,
   description_en: String,
 
-  email: String
+  email: String,
+  created: Date
 })
 export let Faculty = mongoose.model('Faculty', FacultyScheme)

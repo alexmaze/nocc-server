@@ -57,8 +57,26 @@ router.get('/', (req, res) => {
   const page = req.query.page ? parseInt(req.query.page, 10) : 1
   const perpage = parseInt(req.query.perpage, 10)
 
+  let type = req.query.type
+  if (type) {
+    type = parseInt(type, 10)
+  }
+  if (type === 0) {
+    console.log('0 forum')
+  } else if (type === 1) {
+    console.log('1 lecture ')
+  } else if (type === 2) {
+    console.log('2 workshop')
+  } else if (type === 10) {
+    console.log('10 lab')
+  }
+
   if (!perpage) {
-    Event.find().exec((err, events) => {
+    let query = {}
+    if (type != undefined) {
+      query.type = type
+    }
+    Event.find(query).exec((err, events) => {
       if (err) {
         res.status(500).json(err)
         return
@@ -66,7 +84,11 @@ router.get('/', (req, res) => {
       res.json(events)
     })
   } else {
-    pageQuery(page, perpage, Event, undefined, {}, { created: 'desc' }, (err, $page) => {
+    let query = {}
+    if (type != undefined) {
+      query.type = type
+    }
+    pageQuery(page, perpage, Event, undefined, query, { created: 'desc' }, (err, $page) => {
       res.json($page)
     })
   }
