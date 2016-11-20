@@ -5,11 +5,7 @@ export let EventScheme = new mongoose.Schema({
   location: String,
   content: String,
 
-  poster: {
-    description: String,
-    description_en: String,
-    url: String
-  },
+  poster: Array,
   images: Array,
 
   title_en: String,
@@ -19,5 +15,9 @@ export let EventScheme = new mongoose.Schema({
   time: String,
   created: Date
 })
-
+// {
+//     description: String,
+//     description_en: String,
+//     url: String
+//   }
 export let Event = mongoose.model('Event', EventScheme)
