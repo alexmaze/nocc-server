@@ -9,7 +9,7 @@ router.put('/', (req, res) => {
     res.status(403).end()
   }
   User.find({ name: req.body.name, password: req.body.password }).exec().then(users => {
-    if (users && users[0]) {
+    if (users && users[0] && users[0].role === 'admin') {
       req.session.user = users[0]
       users[0].password = undefined
       res.json(users[0])
