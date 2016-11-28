@@ -9,26 +9,23 @@ router.post('/', (req, res) => {
   faculty.created = new Date()
   faculty.save(err => {
     if (err) {
-      res.status(500).json(err)
-      return
+      return res.status(500).json(err)
     }
-    res.json(faculty)
+    return res.json(faculty)
   })
 })
 
 router.patch('/:id', (req, res) => {
   Faculty.findById(req.params.id, (err, faculty) => {
     if (err) {
-      res.status(404).json(err)
-      return
+      return res.status(404).json(err)
     }
     Object.assign(faculty, req.body)
     faculty.save(err => {
       if (err) {
-        res.status(500).json(err)
-        return
+        return res.status(500).json(err)
       }
-      res.json(faculty)
+      return res.json(faculty)
     })
   })
 })
@@ -36,20 +33,18 @@ router.patch('/:id', (req, res) => {
 router.get('/:id', (req, res) => {
   Faculty.findById(req.params.id, (err, faculty) => {
     if (err) {
-      res.status(404).json(err)
-      return
+      return res.status(404).json(err)
     }
-    res.json(faculty)
+    return res.json(faculty)
   })
 })
 
 router.delete('/:id', (req, res) => {
   Faculty.findByIdAndRemove(req.params.id, (err) => {
     if (err) {
-      res.status(404).json(err)
-      return
+      return res.status(404).json(err)
     }
-    res.status(200).end()
+    return res.status(200).end()
   })
 })
 
@@ -60,14 +55,13 @@ router.get('/', (req, res) => {
   if (!perpage) {
     Faculty.find().exec((err, facultys) => {
       if (err) {
-        res.status(500).json(err)
-        return
+        return res.status(500).json(err)
       }
-      res.json(facultys)
+      return res.json(facultys)
     })
   } else {
     pageQuery(page, perpage, Faculty, undefined, {}, { created: 'desc' }, (err, $page) => {
-      res.json($page)
+      return res.json($page)
     })
   }
 })

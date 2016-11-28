@@ -39,16 +39,14 @@ Lab.find((err, old) => {
 router.patch('/', (req, res) => {
   Lab.findById(recordId, (err, record) => {
     if (err) {
-      res.status(404).json(err)
-      return
+      return res.status(404).json(err)
     }
     Object.assign(record, req.body)
     record.save(err => {
       if (err) {
-        res.status(500).json(err)
-        return
+        return res.status(500).json(err)
       }
-      res.json(record)
+      return res.json(record)
     })
   })
 })
@@ -56,10 +54,9 @@ router.patch('/', (req, res) => {
 router.get('/', (req, res) => {
   Lab.findById(recordId, (err, event) => {
     if (err) {
-      res.status(404).json(err)
-      return
+      return res.status(404).json(err)
     }
-    res.json(event)
+    return res.json(event)
   })
 })
 

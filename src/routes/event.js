@@ -9,26 +9,23 @@ router.post('/', (req, res) => {
   event.created = new Date()
   event.save(err => {
     if (err) {
-      res.status(500).json(err)
-      return
+      return res.status(500).json(err)
     }
-    res.json(event)
+    return res.json(event)
   })
 })
 
 router.patch('/:id', (req, res) => {
   Event.findById(req.params.id, (err, event) => {
     if (err) {
-      res.status(404).json(err)
-      return
+      return res.status(404).json(err)
     }
     Object.assign(event, req.body)
     event.save(err => {
       if (err) {
-        res.status(500).json(err)
-        return
+        return res.status(500).json(err)
       }
-      res.json(event)
+      return res.json(event)
     })
   })
 })
@@ -36,20 +33,18 @@ router.patch('/:id', (req, res) => {
 router.get('/:id', (req, res) => {
   Event.findById(req.params.id, (err, event) => {
     if (err) {
-      res.status(404).json(err)
-      return
+      return res.status(404).json(err)
     }
-    res.json(event)
+    return res.json(event)
   })
 })
 
 router.delete('/:id', (req, res) => {
   Event.findByIdAndRemove(req.params.id, (err) => {
     if (err) {
-      res.status(404).json(err)
-      return
+      return res.status(404).json(err)
     }
-    res.status(200).end()
+    return res.status(200).end()
   })
 })
 
@@ -70,18 +65,17 @@ router.get('/', (req, res) => {
   } else if (type === 10) {
     console.log('10 lab')
   }
-
   if (!perpage) {
     let query = {}
     if (type != undefined) {
       query.type = type
     }
     Event.find(query).exec((err, events) => {
+      // throw new Error('error lala')
       if (err) {
-        res.status(500).json(err)
-        return
+        return res.status(500).json(err)
       }
-      res.json(events)
+      return res.json(events)
     })
   } else {
     let query = {}
@@ -89,7 +83,7 @@ router.get('/', (req, res) => {
       query.type = type
     }
     pageQuery(page, perpage, Event, undefined, query, { created: 'desc' }, (err, $page) => {
-      res.json($page)
+      return res.json($page)
     })
   }
 })

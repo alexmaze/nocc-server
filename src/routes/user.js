@@ -14,10 +14,9 @@ router.post('/', (req, res) => {
   newUser.created = new Date()
   newUser.save(err => {
     if (err) {
-      res.status(500).json(err)
-      return
+      return res.status(500).json(err)
     }
-    res.json(newUser._id)
+    return res.json(newUser._id)
   })
 })
 
@@ -28,8 +27,7 @@ router.post('/', (req, res) => {
 router.patch('/:id', (req, res) => {
   User.findById(req.params.id, (err, user) => {
     if (err) {
-      res.status(404).json(err)
-      return
+      return res.status(404).json(err)
     }
 
     user.role = req.body.role
@@ -37,11 +35,10 @@ router.patch('/:id', (req, res) => {
     user.email = req.body.email
     user.save(err => {
       if (err) {
-        res.status(500).json(err)
-        return
+        return res.status(500).json(err)
       }
       user.password = undefined
-      res.json(user)
+      return res.json(user)
     })
   })
 })
@@ -53,21 +50,19 @@ router.get('/:id', (req, res) => {
   console.log('find user', req.params.id)
   User.findById(req.params.id, (err, user) => {
     if (err) {
-      res.status(404).json(err)
-      return
+      return res.status(404).json(err)
     }
     user.password = undefined
-    res.json(user)
+    return res.json(user)
   })
 })
 
 router.delete('/:id', (req, res) => {
   User.findByIdAndRemove(req.params.id, (err) => {
     if (err) {
-      res.status(404).json(err)
-      return
+      return res.status(404).json(err)
     }
-    res.status(200).end()
+    return res.status(200).end()
   })
 })
 
@@ -82,17 +77,19 @@ router.get('/', (req, res) => {
   if (!perpage) {
     User.find().exec((err, list) => {
       if (err) {
-        res.status(500).json(err)
-        return
+        return res.status(500).json(err)
       }
-      res.json(list)
+      list.forEach(user => {
+        user.password = undefined
+      })
+      return res.json(list)
     })
   } else {
     pageQuery(page, perpage, User, undefined, {}, { created: 'desc' }, (err, $page) => {
       $page.items.forEach(user => {
         user.password = undefined
       })
-      res.json($page)
+      return res.json($page)
     })
   }
 })
