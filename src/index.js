@@ -6,6 +6,7 @@ import logger from 'morgan'
 import session from 'express-session'
 import wrench from 'wrench'
 import path from 'path'
+import connectRedis from 'connect-redis'
 
 import {
   db
@@ -32,8 +33,14 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(cookieParser())
 
+let RedisStore = connectRedis(session)
+
 // session 注入
 app.use(session({
+  store: new RedisStore({
+    host: 'localhost',
+    port: '6379'
+  }),
   secret: 'WV78o1Z3v4HjJ8SkPnOjAdC2',
   cookie: {
     maxAge: 60 * 1000 * 60 * 2
