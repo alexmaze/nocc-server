@@ -26,7 +26,7 @@ app.set('trust proxy', 1)
 
 // 中间件
 app.use('/upload', express.static(path.join(__dirname, '../public/upload')))
-app.use(logger('dev'))
+app.use(logger('[:date[iso]] :method :url :status :response-time ms - :res[content-length] :remote-addr'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
