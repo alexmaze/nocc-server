@@ -24,6 +24,12 @@ const upload = multer()
 // trust first proxy
 app.set('trust proxy', 1)
 
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With')
+  next()
+})
+
 // 中间件
 app.use('/upload', express.static(path.join(__dirname, '../public/upload')))
 app.use(logger('[:date[iso]] :method :url :status :response-time ms - :res[content-length] :remote-addr'))
