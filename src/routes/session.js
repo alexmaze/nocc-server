@@ -4,7 +4,7 @@ import { User } from '../models/user.js'
 let router = express.Router()
 
 // 登录
-router.put('/', (req, res) => {
+router.post('/', (req, res) => {
   if (!req.body || !req.body.name || !req.body.password) {
     return res.status(403).end()
   }
@@ -21,12 +21,12 @@ router.put('/', (req, res) => {
   })
 })
 
-router.delete('/', (req, res) => {
+router.post('/delete', (req, res) => {
   req.session.user = undefined
   return res.status(200).end()
 })
 
-router.patch('/', (req, res) => {
+router.post('/patch', (req, res) => {
   let opUser = req.session.user
   if (req.query.password) {
     // 修改密码

@@ -24,7 +24,7 @@ Mission.find((err, old) => {
   }
 })
 
-router.patch('/', (req, res) => {
+router.post('/patch', (req, res) => {
   Mission.findById(recordId, (err, record) => {
     if (err) {
       return res.status(404).json(err)

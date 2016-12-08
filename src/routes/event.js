@@ -15,7 +15,7 @@ router.post('/', (req, res) => {
   })
 })
 
-router.patch('/:id', (req, res) => {
+router.post('/:id/patch', (req, res) => {
   Event.findById(req.params.id, (err, event) => {
     if (err) {
       return res.status(404).json(err)
@@ -39,7 +39,7 @@ router.get('/:id', (req, res) => {
   })
 })
 
-router.delete('/:id', (req, res) => {
+router.post('/:id/delete', (req, res) => {
   Event.findByIdAndRemove(req.params.id, (err) => {
     if (err) {
       return res.status(404).json(err)

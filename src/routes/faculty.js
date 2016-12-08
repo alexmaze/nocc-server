@@ -15,7 +15,7 @@ router.post('/', (req, res) => {
   })
 })
 
-router.patch('/:id', (req, res) => {
+router.post('/:id/patch', (req, res) => {
   Faculty.findById(req.params.id, (err, faculty) => {
     if (err) {
       return res.status(404).json(err)
@@ -39,7 +39,7 @@ router.get('/:id', (req, res) => {
   })
 })
 
-router.delete('/:id', (req, res) => {
+router.post('/:id/delete', (req, res) => {
   Faculty.findByIdAndRemove(req.params.id, (err) => {
     if (err) {
       return res.status(404).json(err)

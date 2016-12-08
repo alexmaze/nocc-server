@@ -16,7 +16,7 @@ module.exports = {
         NODE_ENV: 'production'
       },
       max_memory_restart: '300M',
-      instances  : 2,
+      instances  : 4,
       watch: [  // 监控变化的目录，一旦变化，自动重启
         'dist'
       ]

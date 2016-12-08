@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
  * 更新用户
  * * 支持部分更新，_id 为必填
  */
-router.patch('/:id', (req, res) => {
+router.post('/:id/patch', (req, res) => {
   User.findById(req.params.id, (err, user) => {
     if (err) {
       return res.status(404).json(err)
@@ -57,7 +57,7 @@ router.get('/:id', (req, res) => {
   })
 })
 
-router.delete('/:id', (req, res) => {
+router.post('/:id/delete', (req, res) => {
   User.findByIdAndRemove(req.params.id, (err) => {
     if (err) {
       return res.status(404).json(err)
